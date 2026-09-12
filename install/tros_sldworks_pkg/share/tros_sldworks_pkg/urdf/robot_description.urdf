@@ -1,0 +1,621 @@
+<?xml version="1.0"?>
+<robot
+  name="tros_sldworks_pkg">
+  <link name="base_link"></link>
+  <link
+    name="chassis_link">
+    <inertial>
+      <origin
+        xyz="-0.00117511424802208 0.0560628119659252 0.121693875098373"
+        rpy="0.0 0 0" />
+      <mass
+        value="27.9685222137019" />
+      <inertia
+        ixx="0.236565711412707"
+        ixy="1.88562775623743E-09"
+        ixz="7.73782083519841E-12"
+        iyy="0.708374298168133"
+        iyz="4.15129518898001E-05"
+        izz="0.547317579384183" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/chassis_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/chassis_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint name="chassis_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis_link"/>
+    <origin xyz="0.0 0.0 0.0" rpy="1.5708 0.0 0.0"/>
+  </joint>
+  <link
+    name="left_rotatable_link">
+    <inertial>
+      <origin
+        xyz="-4.65621408565209E-05 -0.089658086052528 -0.0170360588140279"
+        rpy="0 0 0" />
+      <mass
+        value="3.40229054558914" />
+      <inertia
+        ixx="0.00526654975969157"
+        ixy="7.20414424234898E-07"
+        ixz="3.99490846495807E-05"
+        iyy="0.0108012749496101"
+        iyz="1.51609031051643E-05"
+        izz="0.0149420282207255" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/left_rotatable_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/left_rotatable_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="left_rotatable_joint"
+    type="revolute">
+    <origin
+      xyz="-0.34671 0.015 0.19902"
+      rpy="0 -1.5708 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="left_rotatable_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="1" />
+  </joint>
+  <link
+    name="front_left_link">
+    <inertial>
+      <origin
+        xyz="-2.1096582258906E-09 -8.22238721553958E-10 0.00208465841345118"
+        rpy="0 0 0" />
+      <mass
+        value="12.2088239451308" />
+      <inertia
+        ixx="0.0967979128396453"
+        ixy="-1.88152975520753E-11"
+        ixz="7.27471184770446E-10"
+        iyy="0.0967979128424185"
+        iyz="-3.66146921873732E-10"
+        izz="0.133986761609453" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/front_left_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/front_left_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_left_joint"
+    type="continuous">
+    <origin
+      xyz="-0.399129309591516 -0.248184999999998 0.0846516733300001"
+      rpy="-3.14159265358979 0 -3.14159265358979" />
+    <parent
+      link="left_rotatable_link" />
+    <child
+      link="front_left_link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="rear_left_link">
+    <inertial>
+      <origin
+        xyz="1.9787860239262E-10 2.25839458245503E-09 0.00208465837295368"
+        rpy="0 0 0" />
+      <mass
+        value="12.2088239518694" />
+      <inertia
+        ixx="0.0967979128428435"
+        ixy="1.04096733189179E-11"
+        ixz="-6.49744057093606E-10"
+        iyy="0.0967979128117142"
+        iyz="-4.91468354912912E-10"
+        izz="0.133986761609432" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/rear_left_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/rear_left_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_left_joint"
+    type="continuous">
+    <origin
+      xyz="0.399129309591522 -0.24818499999999 0.0999850066700003"
+      rpy="3.14159265358979 0 3.14159265358979" />
+    <parent
+      link="left_rotatable_link" />
+    <child
+      link="rear_left_link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="right_rotatable_link">
+    <inertial>
+      <origin
+        xyz="4.84359169576898E-05 -0.089658086423309 -0.0170360596762877"
+        rpy="0 0 0" />
+      <mass
+        value="3.40229053035036" />
+      <inertia
+        ixx="0.00526654974805328"
+        ixy="6.38915236771398E-06"
+        ixz="-4.02387535737794E-05"
+        iyy="0.0108012749348617"
+        iyz="1.51608973705462E-05"
+        izz="0.0149420282092077" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/right_rotatable_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/right_rotatable_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="right_rotatable_joint"
+    type="revolute">
+    <origin
+      xyz="0.34671 0.015 0.19902"
+      rpy="0 1.5708 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="right_rotatable_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-1.57"
+      upper="1.57"
+      effort="0"
+      velocity="1" />
+  </joint>
+  <link
+    name="front_right_link">
+    <inertial>
+      <origin
+        xyz="1.97876603991176E-10 2.25839413836582E-09 0.00208465837295457"
+        rpy="0 0 0" />
+      <mass
+        value="12.2088239518692" />
+      <inertia
+        ixx="0.0967979128428432"
+        ixy="1.04097015268408E-11"
+        ixz="-6.49744039345196E-10"
+        iyy="0.0967979128117139"
+        iyz="-4.91468374603585E-10"
+        izz="0.133986761609432" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/front_right_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/front_right_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="front_right_joint"
+    type="continuous">
+    <origin
+      xyz="0.399129309591521 -0.248184999999992 0.0846516733299993"
+      rpy="-3.14159265358979 0 -3.14159265358979" />
+    <parent
+      link="right_rotatable_link" />
+    <child
+      link="front_right_link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="rear_right_link">
+    <inertial>
+      <origin
+        xyz="-2.11024264729076E-09 -8.20770784670799E-10 0.00208465839733107"
+        rpy="0 0 0" />
+      <mass
+        value="12.2088239428695" />
+      <inertia
+        ixx="0.0967979128394559"
+        ixy="-1.8452607271961E-11"
+        ixz="7.27562933497237E-10"
+        iyy="0.0967979128417125"
+        iyz="-3.66412510469562E-10"
+        izz="0.133986761609406" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/rear_right_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/rear_right_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rear_right_joint"
+    type="continuous">
+    <origin
+      xyz="-0.399129309591514 -0.248185000000002 0.0999850066699997"
+      rpy="-3.14159265358979 0 -3.14159265358979" />
+    <parent
+      link="right_rotatable_link" />
+    <child
+      link="rear_right_link" />
+    <axis
+      xyz="0 0 -1" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="lidar_link">
+    <inertial>
+      <origin
+        xyz="3.41879387799615E-06 0.036296677126521 0.000102124851530938"
+        rpy="0 0 0" />
+      <mass
+        value="0.605610172266937" />
+      <inertia
+        ixx="0.000670907963914794"
+        ixy="5.2287259679955E-08"
+        ixz="-2.54216844767419E-07"
+        iyy="0.000804073841792418"
+        iyz="1.81336994348355E-06"
+        izz="0.000667057423314157" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/lidar_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/lidar_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lidar_joint"
+    type="fixed">
+    <origin
+      xyz="0 0.195 0.39805"
+      rpy="0 0 0" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="lidar_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="arm_turret_link">
+    <inertial>
+      <origin
+        xyz="-0.020040062897227 0.00760732728293245 0.00272229602453966"
+        rpy="0 0 0" />
+      <mass
+        value="2.22661607727245" />
+      <inertia
+        ixx="0.00340267174194923"
+        ixy="0.000110919225253838"
+        ixz="6.14810916441362E-06"
+        iyy="0.00597817554149303"
+        iyz="-2.63525761017762E-06"
+        izz="0.00872291398518568" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/arm_turret_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.752941176470588 0.752941176470588 0.752941176470588 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/arm_turret_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_turret_joint"
+    type="continuous">
+    <origin
+      xyz="0 0.189388974321119 0"
+      rpy="1.5707963267949 0 -3.14159265358979" />
+    <parent
+      link="chassis_link" />
+    <child
+      link="arm_turret_link" />
+    <axis
+      xyz="0 0 1" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="arm_base_turret_link">
+    <inertial>
+      <origin
+        xyz="1.71134148091445E-05 0.429562275813915 0.0318370849785707"
+        rpy="0 0 0" />
+      <mass
+        value="1.54125416646532" />
+      <inertia
+        ixx="0.00558057441765011"
+        ixy="-1.80363637864579E-09"
+        ixz="-1.3889262006142E-10"
+        iyy="0.00100129520433158"
+        iyz="1.62316064825018E-05"
+        izz="0.00594747554329604" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/arm_base_turret_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/arm_base_turret_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_base_turret_joint"
+    type="revolute">
+    <origin
+      xyz="-0.0942026527316038 0.0718895770090404 0.0863499899999998"
+      rpy="1.5707963267949 0 -2.2226525007642" />
+    <parent
+      link="arm_turret_link" />
+    <child
+      link="arm_base_turret_link" />
+    <axis
+      xyz="0 0 1" />
+    <limit
+      lower="-3.1419"
+      upper="3.1419"
+      effort="0"
+      velocity="0" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+  <link
+    name="arm_mid_link">
+    <inertial>
+      <origin
+        xyz="0.200189039932748 -0.0221836064513696 0.0552047433521281"
+        rpy="0 0 0" />
+      <mass
+        value="0.98691392916891" />
+      <inertia
+        ixx="0.000806442908333936"
+        ixy="0.000472332885801452"
+        ixz="-2.3512689044232E-05"
+        iyy="0.00525119264275666"
+        iyz="-4.72857042019189E-06"
+        izz="0.0053447645627134" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/arm_mid_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.894117647058823 0.894117647058823 0.894117647058823 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://tros_sldworks_pkg/meshes/arm_mid_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="arm_mid_joint"
+    type="revolute">
+    <origin
+      xyz="0 0.615200000000052 -0.0202624999999994"
+      rpy="-3.14159265358979 0 0" />
+    <parent
+      link="arm_base_turret_link" />
+    <child
+      link="arm_mid_link" />
+    <axis
+      xyz="0 0 -1" />
+    <limit
+      lower="-3.1419"
+      upper="3.1419"
+      effort="0"
+      velocity="0" />
+    <dynamics
+      damping="0.1"
+      friction="0.1" />
+  </joint>
+</robot>

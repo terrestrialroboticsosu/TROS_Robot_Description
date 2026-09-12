@@ -1,0 +1,48 @@
+running egg_info
+creating build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info
+writing build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/PKG-INFO
+writing dependency_links to build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/dependency_links.txt
+writing requirements to build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/requires.txt
+writing top-level names to build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/top_level.txt
+writing manifest file 'build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/SOURCES.txt'
+reading manifest file 'build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/SOURCES.txt'
+writing manifest file 'build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build
+creating /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib
+creating /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib/tros_sldworks_pkg
+copying tros_sldworks_pkg/__init__.py -> /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib/tros_sldworks_pkg
+running install
+running install_lib
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg
+copying /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib/tros_sldworks_pkg/__init__.py -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg
+byte-compiling /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg/__init__.py to __init__.cpython-312.pyc
+running install_data
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index/packages
+copying resource/tros_sldworks_pkg -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index/packages
+copying package.xml -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/launch
+copying launch/view_robot.launch -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/launch
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf
+copying urdf/robot_description.urdf -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/rviz
+copying rviz/default_view.rviz -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/rviz
+creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/arm_turret_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/front_right_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/front_left_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/right_rotatable_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/chassis_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/rear_right_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/arm_base_turret_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/left_rotatable_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/arm_mid_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/lidar_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+copying meshes/rear_left_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+running install_egg_info
+Copying build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info to /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg-0.0.0-py3.12.egg-info
+running install_scripts
+writing list of installed files to '/home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/install.log'

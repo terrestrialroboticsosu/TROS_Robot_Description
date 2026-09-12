@@ -1,0 +1,50 @@
+[0.387s] Invoking command in '/home/rara/tros_sldworks_pkg': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/tros_sldworks_pkg build --build-base /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build install --record /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/install.log --install-scripts $base/lib/tros_sldworks_pkg --single-version-externally-managed install_data
+[0.518s] running egg_info
+[0.518s] creating build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info
+[0.527s] writing build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/PKG-INFO
+[0.527s] writing dependency_links to build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/dependency_links.txt
+[0.527s] writing requirements to build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/requires.txt
+[0.527s] writing top-level names to build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/top_level.txt
+[0.527s] writing manifest file 'build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/SOURCES.txt'
+[0.545s] reading manifest file 'build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/SOURCES.txt'
+[0.545s] writing manifest file 'build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/SOURCES.txt'
+[0.545s] running build
+[0.545s] running build_py
+[0.545s] creating /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build
+[0.545s] creating /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib
+[0.545s] creating /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib/tros_sldworks_pkg
+[0.545s] copying tros_sldworks_pkg/__init__.py -> /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib/tros_sldworks_pkg
+[0.545s] running install
+[0.548s] running install_lib
+[0.557s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg
+[0.557s] copying /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build/lib/tros_sldworks_pkg/__init__.py -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg
+[0.557s] byte-compiling /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg/__init__.py to __init__.cpython-312.pyc
+[0.557s] running install_data
+[0.558s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index
+[0.558s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index
+[0.558s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index/packages
+[0.558s] copying resource/tros_sldworks_pkg -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index/packages
+[0.558s] copying package.xml -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg
+[0.558s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/launch
+[0.558s] copying launch/view_robot.launch -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/launch
+[0.558s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf
+[0.558s] copying urdf/robot_description.urdf -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf
+[0.558s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/rviz
+[0.558s] copying rviz/default_view.rviz -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/rviz
+[0.559s] creating /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.560s] copying meshes/arm_turret_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.563s] copying meshes/front_right_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.566s] copying meshes/front_left_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.568s] copying meshes/right_rotatable_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.573s] copying meshes/chassis_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.574s] copying meshes/rear_right_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.576s] copying meshes/arm_base_turret_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.578s] copying meshes/left_rotatable_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.581s] copying meshes/arm_mid_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.582s] copying meshes/lidar_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.582s] copying meshes/rear_left_link.STL -> /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes
+[0.584s] running install_egg_info
+[0.593s] Copying build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info to /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages/tros_sldworks_pkg-0.0.0-py3.12.egg-info
+[0.593s] running install_scripts
+[0.654s] writing list of installed files to '/home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/install.log'
+[0.667s] Invoked command in '/home/rara/tros_sldworks_pkg' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/tros_sldworks_pkg build --build-base /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/build install --record /home/rara/tros_sldworks_pkg/build/tros_sldworks_pkg/install.log --install-scripts $base/lib/tros_sldworks_pkg --single-version-externally-managed install_data
