@@ -3,7 +3,7 @@
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/ament_index/resource_index/packages/tros_sldworks_pkg
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/package.xml
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/launch/view_robot.launch
-/home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf/robot_description.sdf
+/home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf/robot_description.urdf
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/rviz/default_view.rviz
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/arm_turret_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/front_right_link.STL

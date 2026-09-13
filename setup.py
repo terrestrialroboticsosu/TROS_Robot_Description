@@ -12,7 +12,7 @@ setup(
             ['resource/' + package_name]),
         ('share/' + package_name, ['package.xml']),
         ('share/' + package_name + '/launch', ['launch/view_robot.launch']),
-        ('share/' + package_name + '/urdf', ['urdf/robot_description.sdf']),
+        ('share/' + package_name + '/urdf', ['urdf/robot_description.urdf']),
         ('share/' + package_name + '/rviz', ['rviz/default_view.rviz']),
         ('share/' + package_name + '/meshes', glob('meshes/*')), #include meshes
     ],

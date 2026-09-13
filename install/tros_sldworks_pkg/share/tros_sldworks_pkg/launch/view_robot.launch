@@ -13,9 +13,9 @@ def generate_launch_description():
         description='Use joint_state_publisher_gui to move joints'
     )
 
-    sdf_file = PathJoinSubstitution([pkg, 'urdf', 'robot_description.sdf']) 
+    urdf_file = PathJoinSubstitution([pkg, 'urdf', 'robot_description.urdf']) 
 
-    robot_description = Command(['cat ', sdf_file])
+    robot_description = Command(['cat ', urdf_file])
 
     # Publishes /joint_states from sliders 
     jsp_gui = Node(
