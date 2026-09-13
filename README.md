@@ -10,7 +10,7 @@ It also runs the **Joint State Publisher GUI**, so you can move the robot’s jo
 Run this command:
 
 ```bash
-ros2 launch view_robot_pkg view_robot.launch
+ros2 launch tros_sldworks_pkg view_robot.launch
 ```
 
 ## Dependencies
@@ -19,7 +19,3 @@ sudo apt install ros-${ROS_DISTRO}-rviz2 \
                  ros-${ROS_DISTRO}-joint-state-publisher-gui \
                  ros-${ROS_DISTRO}-robot-state-publisher
 ```
-## Related YouTube Video
-#### Explains how to convert SolidWorks to URDF for ROS2 & How to use this package.
-#### Link: https://www.youtube.com/watch?v=JdZJP3tGcA4&feature=youtu.be
-
