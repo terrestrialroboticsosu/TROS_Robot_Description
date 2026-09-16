@@ -10,6 +10,8 @@ build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/top_level.txt
 build/tros_sldworks_pkg/tros_sldworks_pkg.egg-info/zip-safe
 launch/view_robot.launch
 meshes/arm_base_turret_link.STL
+meshes/arm_end_effector_spin_link.STL
+meshes/arm_end_effector_turn_link.STL
 meshes/arm_mid_link.STL
 meshes/arm_turret_link.STL
 meshes/chassis_link.STL

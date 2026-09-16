@@ -5,6 +5,7 @@
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/launch/view_robot.launch
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/urdf/robot_description.urdf
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/rviz/default_view.rviz
+/home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/arm_end_effector_turn_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/arm_turret_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/front_right_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/front_left_link.STL
@@ -13,6 +14,7 @@
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/rear_right_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/arm_base_turret_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/left_rotatable_link.STL
+/home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/arm_end_effector_spin_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/arm_mid_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/lidar_link.STL
 /home/rara/tros_sldworks_pkg/install/tros_sldworks_pkg/share/tros_sldworks_pkg/meshes/rear_left_link.STL
