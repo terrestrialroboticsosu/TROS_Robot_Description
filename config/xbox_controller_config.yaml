@@ -1,0 +1,20 @@
+teleop_twist_joy_node:
+  ros__parameters:
+    # Axis to control forward/backward speed (typically Left Stick Up/Down)
+    axis_linear:
+      x: 1
+    
+    # Scale multiplier for maximum linear speed (in m/s)
+    scale_linear:
+      x: 1.5
+
+    # Axis to control turning speed (typically Left Stick Left/Right)
+    axis_angular:
+      yaw: 0
+    
+    # Scale multiplier for maximum angular speed (in rad/s)
+    scale_angular:
+      yaw: 3.14
+
+    # Safety deadman button index (Must be held to publish cmd_vel)
+    enable_button: 5  # Typically RB or R1

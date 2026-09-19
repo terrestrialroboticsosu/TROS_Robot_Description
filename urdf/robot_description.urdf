@@ -332,7 +332,7 @@
     <child
       link="front_right_link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
     <dynamics
       damping="0.1"
       friction="0.1" />
@@ -388,7 +388,7 @@
     <child
       link="rear_right_link" />
     <axis
-      xyz="0 0 -1" />
+      xyz="0 0 1" />
     <dynamics
       damping="0.1"
       friction="0.1" />
@@ -772,4 +772,23 @@
     <dynamics 
       damping="0.4" />
   </joint>
+  <gazebo>
+    <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive">
+      <left_joint>front_left_joint</left_joint>
+      <left_joint>rear_left_joint</left_joint>
+      <right_joint>front_right_joint</right_joint>
+      <right_joint>rear_right_joint</right_joint>
+      <wheel_separation>0.4</wheel_separation>
+      <wheel_radius>0.15</wheel_radius>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>true</publish_wheel_tf>
+      <odom_publish_frequency>50</odom_publish_frequency>
+      <topic>/cmd_vel</topic>
+      <odom_topic>/odom</odom_topic>
+      <tf_topic>/tf</tf_topic>
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+    </plugin>
+  </gazebo>
 </robot>
