@@ -1,0 +1,730 @@
+<sdf version='1.11'>
+  <model name='tros_sldworks_pkg'>
+    <link name='base_link'>
+      <inertial>
+        <pose>-0.001150136005850583 -0.12755344766777019 0.059776311364879223 0 0 0</pose>
+        <mass>28.574132385968831</mass>
+        <inertia>
+          <ixx>0.30074416744577898</ixx>
+          <ixy>0.0001933896417179604</ixy>
+          <ixz>-0.00012236428718409139</ixz>
+          <iyy>0.56618752608529299</iyy>
+          <iyz>0.028672860033614689</iyz>
+          <izz>0.75448467745830916</izz>
+        </inertia>
+      </inertial>
+      <collision name='base_link_fixed_joint_lump__chassis_link_collision'>
+        <pose>0 0 0 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/chassis_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <collision name='base_link_fixed_joint_lump__lidar_link_collision_1'>
+        <pose>0 -0.39805071627230992 0.19499853787939311 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/lidar_link.STL</uri>
+          </mesh>
+        </geometry>
+        <surface>
+          <contact>
+            <ode/>
+          </contact>
+          <friction>
+            <ode/>
+          </friction>
+        </surface>
+      </collision>
+      <visual name='base_link_fixed_joint_lump__chassis_link_visual'>
+        <pose>0 0 0 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/chassis_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <visual name='base_link_fixed_joint_lump__lidar_link_visual_1'>
+        <pose>0 -0.39805071627230992 0.19499853787939311 1.5708 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/lidar_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+      <sensor name='velodyne_vlp16' type='gpu_lidar'>
+        <topic>/velodyne_points</topic>
+        <update_rate>10</update_rate>
+        <ray>
+          <scan>
+            <horizontal>
+              <samples>1800</samples>
+              <resolution>1</resolution>
+              <min_angle>-3.1415926535897931</min_angle>
+              <max_angle>3.1415926535897931</max_angle>
+            </horizontal>
+            <vertical>
+              <samples>16</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.26179938779914941</min_angle>
+              <max_angle>0.26179938779914941</max_angle>
+            </vertical>
+          </scan>
+          <range>
+            <min>0.90000000000000002</min>
+            <max>100</max>
+            <resolution>0.001</resolution>
+          </range>
+          <noise>
+            <type>gaussian</type>
+            <mean>0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </ray>
+        <always_on>true</always_on>
+        <visualize>true</visualize>
+        <pose>0 -0.39805099999999999 0.19499900000000001 0 0 0</pose>
+      </sensor>
+    </link>
+    <joint name='arm_turret_joint' type='revolute'>
+      <pose relative_to='base_link'>0 -6.9790896969901262e-07 0.18999999999871831 1.1901334894371292e-17 -7.3464102066601085e-06 -3.141592653562808</pose>
+      <parent>base_link</parent>
+      <child>arm_turret_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm_turret_link'>
+      <pose relative_to='arm_turret_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0 0 0 0 0 0</pose>
+        <mass>1</mass>
+        <inertia>
+          <ixx>0</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0</iyy>
+          <iyz>0</iyz>
+          <izz>0</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_turret_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_turret_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm_turret_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_turret_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_base_turret_joint' type='revolute'>
+      <pose relative_to='arm_turret_link'>-0.094202999999999995 0.071889999999999996 0.086349999999999996 1.5708 -5.5511151231257827e-17 -2.2227000000000001</pose>
+      <parent>arm_turret_link</parent>
+      <child>arm_base_turret_link</child>
+      <axis>
+        <xyz>0 0 1</xyz>
+        <limit>
+          <lower>-3.1400000000000001</lower>
+          <upper>3.1400000000000001</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm_base_turret_link'>
+      <pose relative_to='arm_base_turret_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>1.7113417538405801e-05 0.429562275870776 0.031837085062981899 0 0 0</pose>
+        <mass>1.5412541681013101</mass>
+        <inertia>
+          <ixx>0.0055805744179172499</ixx>
+          <ixy>-1.8036932744494001e-09</ixy>
+          <ixz>-1.3889028837622799e-10</ixz>
+          <iyy>0.0010012952044183201</iyy>
+          <iyz>1.6231606500007901e-05</iyz>
+          <izz>0.0059474755436271596</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_base_turret_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_base_turret_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm_base_turret_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_base_turret_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_mid_joint' type='revolute'>
+      <pose relative_to='arm_base_turret_link'>0 0.61519999999999997 -0.020261999999999999 3.1415853071795872 0 0</pose>
+      <parent>arm_base_turret_link</parent>
+      <child>arm_mid_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.1400000000000001</lower>
+          <upper>3.1400000000000001</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm_mid_link'>
+      <pose relative_to='arm_mid_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.2499114714616 -0.026378117301245001 0.052075665132913097 0 0 0</pose>
+        <mass>1.17448790322858</mass>
+        <inertia>
+          <ixx>0.00094095579940185303</ixx>
+          <ixy>0.00047202165955858601</ixy>
+          <ixz>-2.0189010621514101e-05</ixz>
+          <iyy>0.0053792042645627904</iyy>
+          <iyz>2.9620803837499501e-05</iyz>
+          <izz>0.0055684915930616702</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_mid_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_mid_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm_mid_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_mid_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_end_effector_turn_joint' type='revolute'>
+      <pose relative_to='arm_mid_link'>0.57469999999999999 -0.062022000000000001 0.056669999999999998 2.8595000000000002 0.14022000000000015 0.34466999999999992</pose>
+      <parent>arm_mid_link</parent>
+      <child>arm_end_effector_turn_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-3.1400000000000001</lower>
+          <upper>3.1400000000000001</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.40000000000000002</damping>
+          <friction>0.20000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm_end_effector_turn_link'>
+      <pose relative_to='arm_end_effector_turn_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.00393657718391949 0.0020174942894615202 -0.00354471898145681 0 0 0</pose>
+        <mass>0.054558157005004097</mass>
+        <inertia>
+          <ixx>7.6099959200207104e-06</ixx>
+          <ixy>8.4465951519722096e-07</ixy>
+          <ixz>2.7580938872254299e-09</ixz>
+          <iyy>6.5196062722024198e-06</iyy>
+          <iyz>-1.10445560648114e-09</iyz>
+          <izz>8.2207439434569605e-06</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_end_effector_turn_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_end_effector_turn_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm_end_effector_turn_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_end_effector_turn_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='arm_end_effector_spin_joint' type='revolute'>
+      <pose relative_to='arm_end_effector_turn_link'>0.021190000000000001 0.011271 -0.0037290999999999999 1.5707999999999998 -1.2555000000000005 -1.0708999999999989</pose>
+      <parent>arm_end_effector_turn_link</parent>
+      <child>arm_end_effector_spin_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <damping>0.40000000000000002</damping>
+          <friction>0</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='arm_end_effector_spin_link'>
+      <pose relative_to='arm_end_effector_spin_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>0.019910000000000001 -0.0052147000000000001 -0.065237000000000003 0 0 0</pose>
+        <mass>0.33684999999999998</mass>
+        <inertia>
+          <ixx>0.00031796999999999999</ixx>
+          <ixy>-1.2778e-05</ixy>
+          <ixz>3.2166999999999999e-05</ixz>
+          <iyy>0.00031234999999999998</iyy>
+          <iyz>-2.109e-05</iyz>
+          <izz>0.00016579</izz>
+        </inertia>
+      </inertial>
+      <collision name='arm_end_effector_spin_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_end_effector_spin_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='arm_end_effector_spin_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/arm_end_effector_spin_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='left_rotatable_joint' type='revolute'>
+      <pose relative_to='base_link'>-0.34671000000000002 -0.19902005509673401 0.014999268958619111 1.570796326781404 3.6732051033133042e-06 -1.5708</pose>
+      <parent>base_link</parent>
+      <child>left_rotatable_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1.5700000000000001</lower>
+          <upper>1.5700000000000001</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.40000000000000002</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='left_rotatable_link'>
+      <pose relative_to='left_rotatable_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-4.6562140857409103e-05 -0.0896580860525273 -0.017036058814027699 0 0 0</pose>
+        <mass>3.4022905455891501</mass>
+        <inertia>
+          <ixx>0.0052665497596915698</ixx>
+          <ixy>7.2041442423311102e-07</ixy>
+          <ixz>3.9949084649580599e-05</ixz>
+          <iyy>0.0108012749496101</iyy>
+          <iyz>1.51609031051643e-05</iyz>
+          <izz>0.0149420282207255</izz>
+        </inertia>
+      </inertial>
+      <collision name='left_rotatable_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/left_rotatable_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='left_rotatable_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/left_rotatable_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>1 1 1 1</diffuse>
+          <ambient>1 1 1 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='front_left_joint' type='revolute'>
+      <pose relative_to='left_rotatable_link'>-0.39912999999999998 -0.24818000000000001 0.084652000000000005 3.1415853071795872 0 3.1415853071795872</pose>
+      <parent>left_rotatable_link</parent>
+      <child>front_left_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='front_left_link'>
+      <pose relative_to='front_left_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-2.1096999999999999e-09 -8.2224000000000005e-10 0.0020847000000000001 0 0 0</pose>
+        <mass>12.209</mass>
+        <inertia>
+          <ixx>0.096797999999999995</ixx>
+          <ixy>-1.8814999999999998e-11</ixy>
+          <ixz>7.2746999999999997e-10</ixz>
+          <iyy>0.096797999999999995</iyy>
+          <iyz>-3.6615000000000002e-10</iyz>
+          <izz>0.13399</izz>
+        </inertia>
+      </inertial>
+      <collision name='front_left_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/front_left_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='front_left_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/front_left_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941174984 0.941174984 0.941174984 1</diffuse>
+          <ambient>0.941174984 0.941174984 0.941174984 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='rear_left_joint' type='revolute'>
+      <pose relative_to='left_rotatable_link'>0.39912930959152199 -0.24818499999999 0.099985006670000307 3.14159265358979 0 3.14159265358979</pose>
+      <parent>left_rotatable_link</parent>
+      <child>rear_left_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='rear_left_link'>
+      <pose relative_to='rear_left_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>1.9787771421420101e-10 2.25839369427661e-09 0.0020846583729537999 0 0 0</pose>
+        <mass>12.2088239518694</mass>
+        <inertia>
+          <ixx>0.096797912842843503</ixx>
+          <ixy>1.04096732934944e-11</ixy>
+          <ixz>-6.4974405637478001e-10</ixz>
+          <iyy>0.096797912811714196</iyy>
+          <iyz>-4.9146835490954002e-10</iyz>
+          <izz>0.13398676160943199</izz>
+        </inertia>
+      </inertial>
+      <collision name='rear_left_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/rear_left_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='rear_left_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/rear_left_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='right_rotatable_joint' type='revolute'>
+      <pose relative_to='base_link'>0.34671000000000002 -0.19902005509673401 0.014999268958619111 1.570796326781404 -3.6732051033133042e-06 1.5708</pose>
+      <parent>base_link</parent>
+      <child>right_rotatable_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-1.5700000000000001</lower>
+          <upper>1.5700000000000001</upper>
+          <effort>0</effort>
+          <velocity>0</velocity>
+        </limit>
+        <dynamics>
+          <damping>0.40000000000000002</damping>
+          <friction>1</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='right_rotatable_link'>
+      <pose relative_to='right_rotatable_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>4.84359169552473e-05 -0.089658086423308095 -0.017036059676289701 0 0 0</pose>
+        <mass>3.4022905303503599</mass>
+        <inertia>
+          <ixx>0.0052665497480532796</ixx>
+          <ixy>6.3891523677141998e-06</ixy>
+          <ixz>-4.0238753573779403e-05</ixz>
+          <iyy>0.0108012749348617</iyy>
+          <iyz>1.51608973705461e-05</iyz>
+          <izz>0.014942028209207699</izz>
+        </inertia>
+      </inertial>
+      <collision name='right_rotatable_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/right_rotatable_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='right_rotatable_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/right_rotatable_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='front_right_joint' type='revolute'>
+      <pose relative_to='right_rotatable_link'>0.39912930959152099 -0.248184999999992 0.084651673329999302 -3.14159265358979 0 -3.14159265358979</pose>
+      <parent>right_rotatable_link</parent>
+      <child>front_right_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='front_right_link'>
+      <pose relative_to='front_right_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>1.9787638194657099e-10 2.2583948044996301e-09 0.0020846583729527998 0 0 0</pose>
+        <mass>12.208823951869199</mass>
+        <inertia>
+          <ixx>0.096797912842843295</ixx>
+          <ixy>1.04097015147691e-11</ixy>
+          <ixz>-6.4974403865697899e-10</ixz>
+          <iyy>0.096797912811714001</iyy>
+          <iyz>-4.9146837461480097e-10</iyz>
+          <izz>0.13398676160943199</izz>
+        </inertia>
+      </inertial>
+      <collision name='front_right_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/front_right_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='front_right_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/front_right_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <joint name='rear_right_joint' type='revolute'>
+      <pose relative_to='right_rotatable_link'>-0.39912930959151399 -0.24818500000000199 0.099985006669999696 -3.14159265358979 0 -3.14159265358979</pose>
+      <parent>right_rotatable_link</parent>
+      <child>rear_right_link</child>
+      <axis>
+        <xyz>0 0 -1</xyz>
+        <limit>
+          <lower>-inf</lower>
+          <upper>inf</upper>
+        </limit>
+        <dynamics>
+          <damping>0.10000000000000001</damping>
+          <friction>0.10000000000000001</friction>
+          <spring_reference>0</spring_reference>
+          <spring_stiffness>0</spring_stiffness>
+        </dynamics>
+      </axis>
+    </joint>
+    <link name='rear_right_link'>
+      <pose relative_to='rear_right_joint'>0 0 0 0 0 0</pose>
+      <inertial>
+        <pose>-2.1102435354691798e-09 -8.2077100671540403e-10 0.0020846583973324101 0 0 0</pose>
+        <mass>12.2088239428695</mass>
+        <inertia>
+          <ixx>0.096797912839455894</ixx>
+          <ixy>-1.8452608288483101e-11</ixy>
+          <ixz>7.2756293350631102e-10</ixz>
+          <iyy>0.096797912841712505</iyy>
+          <iyz>-3.6641251046776499e-10</iyz>
+          <izz>0.13398676160940601</izz>
+        </inertia>
+      </inertial>
+      <collision name='rear_right_link_collision'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/rear_right_link.STL</uri>
+          </mesh>
+        </geometry>
+      </collision>
+      <visual name='rear_right_link_visual'>
+        <pose>0 0 0 0 0 0</pose>
+        <geometry>
+          <mesh>
+            <scale>1 1 1</scale>
+            <uri>model://tros_sldworks_pkg/meshes/rear_right_link.STL</uri>
+          </mesh>
+        </geometry>
+        <material>
+          <diffuse>0.941176474 0.941176474 0.941176474 1</diffuse>
+          <ambient>0.941176474 0.941176474 0.941176474 1</ambient>
+        </material>
+      </visual>
+    </link>
+    <frame name='lidar_joint' attached_to='chassis_link'>
+      <pose>0 0.19500000000000001 0.39805000000000001 0 0 0</pose>
+    </frame>
+    <frame name='lidar_link' attached_to='lidar_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+    <frame name='chassis_joint' attached_to='base_link'>
+      <pose>0 0 0 1.5708 0 0</pose>
+    </frame>
+    <frame name='chassis_link' attached_to='chassis_joint'>
+      <pose>0 0 0 0 0 0</pose>
+    </frame>
+  </model>
+</sdf>

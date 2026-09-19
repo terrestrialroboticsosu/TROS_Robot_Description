@@ -13,6 +13,11 @@ Run this command:
 ros2 launch tros_sldworks_pkg view_robot.launch
 ```
 
+Or to view current version in gazebo run: 
+```bash
+ros2 launch tros_sldworks_pkg view_gazebo.launch.py
+```
+
 ## Dependencies
 ```bash
 sudo apt install ros-${ROS_DISTRO}-rviz2 \
