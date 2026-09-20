@@ -5,10 +5,13 @@ from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, PathJoinSubstitution
 from launch_ros.actions import Node
+import xacro
 
 def generate_launch_description():
     pkg_share = get_package_share_directory('tros_sldworks_pkg')
     world_file = PathJoinSubstitution([pkg_share, 'world', 'rover_world.sdf'])
+    xacro_file = os.path.join(pkg_share, 'urdf', 'robot_description.urdf.xacro')
+    robot_description_config = xacro.process_file(xacro_file)
 
     # Append package share directory to GZ_SIM_RESOURCE_PATH so 
     # model:// and package:// mesh URIs resolve automatically
@@ -20,12 +23,7 @@ def generate_launch_description():
         value=f"{pkg_parent_share}:{existing_gz_path}" if existing_gz_path else pkg_parent_share
     )
 
-    # 1. URDF File (Kept for ROS robot_state_publisher / RViz TF tree)
-    urdf_file = PathJoinSubstitution([pkg_share, 'urdf', 'robot_description.urdf'])
-    robot_description = Command(['cat ', urdf_file])
-
-    # 2. SDF File (Used strictly for Gazebo)
-    sdf_file = PathJoinSubstitution([pkg_share, 'urdf', 'robot_description.sdf'])
+    robot_description = robot_description_config.toxml()
 
     # Publishes robot TF and robot_description topic (requires URDF)
     rsp = Node(
@@ -45,7 +43,7 @@ def generate_launch_description():
                 'gz_sim.launch.py'
             ])
         ),
-        launch_arguments={'gz_args': PathJoinSubstitution(['-r ',world_file])}.items()
+        launch_arguments={'gz_args': [PathJoinSubstitution(['-r ', world_file])]}.items()
     )
 
     # Spawns the rover into Gazebo DIRECTLY from the SDF file
@@ -53,9 +51,9 @@ def generate_launch_description():
         package='ros_gz_sim',
         executable='create',
         arguments=[
-            '-file', sdf_file,
+            '-topic', 'robot_description',
             '-name', 'rover',
-            '-z', '0.5'
+            '-z', '0.4'
         ],
         output='screen'
     )

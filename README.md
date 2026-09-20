@@ -17,6 +17,16 @@ Or to view current version in gazebo run:
 ```bash
 ros2 launch tros_sldworks_pkg view_gazebo.launch.py
 ```
+In order to start joystick sim:
+```bash
+ros2 launch tros_sldworks_pkg view_gazebo.launch.py
+ros2 run controller_manager spawner diff_cont
+ros2 run controller_manager spawner joint_broad
+ros2 run joy joy_node
+ros2 run teleop_twist_joy teleop_node --ros-args -r /cmd_vel:=/diff_cont/cmd_vel -p publish_stamped_twist:=true --params-file ~/tros_sldworks_pkg/config/xbox_controller_config.yaml
+```
+
+from there hold down right bumper and steer with left joystick
 
 ## Dependencies
 ```bash
