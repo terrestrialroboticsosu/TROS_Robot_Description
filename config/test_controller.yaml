@@ -5,6 +5,9 @@ controller_manager:
 
     diff_cont:
       type: diff_drive_controller/DiffDriveController
+
+    arm_cont:
+      type: position_controllers/JointGroupPositionController
     
     joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -23,3 +26,13 @@ diff_cont:
     use_stamped_vel: false
 
     wheels_per_side: 2
+
+arm_cont:
+  ros__parameters:
+    joints:
+      - arm_turret_joint
+      - arm_base_turret_joint
+      - arm_mid_joint
+      - arm_end_effector_turn_joint
+      - arm_end_effector_spin_joint
+    interface_name: position

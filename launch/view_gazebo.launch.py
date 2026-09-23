@@ -8,7 +8,10 @@ from launch_ros.actions import Node
 import xacro
 
 def generate_launch_description():
-    pkg_share = get_package_share_directory('tros_sldworks_pkg')
+
+    package_name = 'tros_sldworks_pkg'
+
+    pkg_share = get_package_share_directory(package_name)
     world_file = PathJoinSubstitution([pkg_share, 'world', 'rover_world.sdf'])
     xacro_file = os.path.join(pkg_share, 'urdf', 'robot_description.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
@@ -59,7 +62,7 @@ def generate_launch_description():
     )
 
     # Bridge Gazebo /velodyne_points topic to ROS 2
-    bridge_params = os.path.join(get_package_share_directory('tros_sldworks_pkg'),'config','gz_bridge.yaml')
+    bridge_params = os.path.join(get_package_share_directory(package_name),'config','gz_bridge.yaml')
     ros_gz_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",

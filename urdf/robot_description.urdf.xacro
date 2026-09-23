@@ -448,8 +448,8 @@
           <vertical>
             <samples>16</samples>
             <resolution>1</resolution>
-            <min_angle>-0.2617993877991494</min_angle> <!-- -15 degrees -->
-            <max_angle>0.2617993877991494</max_angle>  <!-- +15 degrees -->
+            <min_angle>-0.2617993877991494</min_angle> 
+            <max_angle>0.2617993877991494</max_angle>
           </vertical>
         </scan>
         <range>
@@ -472,7 +472,7 @@
     type="fixed">
     <origin
       xyz="0 0.195 0.39805"
-      rpy="0 0 0" />
+      rpy="-1.57 0 0" />
     <parent
       link="chassis_link" />
     <child
@@ -576,7 +576,7 @@
   </link>
   <joint
     name="arm_base_turret_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="-0.094203 0.07189 0.08635"
       rpy="1.5708 0 -2.2227" />
@@ -586,11 +586,6 @@
       link="arm_base_turret_link" />
     <axis
       xyz="0 0 1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="0"
-      velocity="0" />
     <dynamics
       damping="0.1"
       friction="0.1" />
@@ -637,7 +632,7 @@
   </link>
   <joint
     name="arm_mid_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0 0.6152 -0.020262"
       rpy="-3.1416 0 0" />
@@ -647,11 +642,6 @@
       link="arm_mid_link" />
     <axis
       xyz="0 0 -1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="0"
-      velocity="0" />
     <dynamics
       damping="0.1"
       friction="0.1" />
@@ -698,7 +688,7 @@
   </link>
   <joint
     name="arm_end_effector_turn_joint"
-    type="revolute">
+    type="continuous">
     <origin
       xyz="0.5747 -0.062022 0.05667"
       rpy="2.8595 0.14022 0.34467" />
@@ -708,11 +698,6 @@
       link="arm_end_effector_turn_link" />
     <axis
       xyz="0 0 -1" />
-    <limit
-      lower="-3.14"
-      upper="3.14"
-      effort="0"
-      velocity="0" />
     <dynamics
       damping="0.4"
       friction="0.2" />
@@ -833,6 +818,46 @@
       </command_interface>
       <state_interface name="velocity"></state_interface>
       <state_interface name="position"></state_interface>
+    </joint>
+    <joint name="arm_turret_joint">
+      <command_interface name = "position">
+        <param name="min">-3.14</param>
+        <param name="max">3.14</param>
+      </command_interface>
+      <state_interface name="position"></state_interface>
+      <state_interface name="velocity"></state_interface>
+    </joint>
+    <joint name="arm_base_turret_joint">
+      <command_interface name = "position">
+        <param name="min">-3.14</param>
+        <param name="max">3.14</param>
+      </command_interface>
+      <state_interface name="position"></state_interface>
+      <state_interface name="velocity"></state_interface>
+    </joint>
+    <joint name="arm_mid_joint">
+      <command_interface name = "position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position"></state_interface>
+      <state_interface name="velocity"></state_interface>
+    </joint>
+    <joint name="arm_end_effector_turn_joint">
+      <command_interface name = "position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position"></state_interface>
+      <state_interface name="velocity"></state_interface>
+    </joint>
+    <joint name="arm_end_effector_spin_joint">
+      <command_interface name = "position">
+        <param name="min">-10</param>
+        <param name="max">10</param>
+      </command_interface>
+      <state_interface name="position"></state_interface>
+      <state_interface name="velocity"></state_interface>
     </joint>
   </ros2_control>
 </robot>
