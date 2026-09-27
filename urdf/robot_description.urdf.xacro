@@ -100,8 +100,8 @@
     <axis
       xyz="0 0 -1" />
     <limit
-      lower="-1.57"
-      upper="1.57"
+      lower="-0.261799"
+      upper="0.261799"
       effort="0"
       velocity="0" />
     <dynamics
@@ -273,8 +273,8 @@
     <axis
       xyz="0 0 -1" />
     <limit
-      lower="-1.57"
-      upper="1.57"
+      lower="-0.261799"
+      upper="0.261799"
       effort="0"
       velocity="0" />
     <dynamics
@@ -757,25 +757,7 @@
     <dynamics 
       damping="0.4" />
   </joint>
-  <!-- <gazebo> -->
-    <!-- <plugin filename="gz-sim-diff-drive-system" name="gz::sim::systems::DiffDrive"> -->
-      <!-- <left_joint>front_left_joint</left_joint> -->
-      <!-- <left_joint>rear_left_joint</left_joint> -->
-      <!-- <right_joint>front_right_joint</right_joint> -->
-      <!-- <right_joint>rear_right_joint</right_joint> -->
-      <!-- <wheel_separation>0.4</wheel_separation> -->
-      <!-- <wheel_radius>0.15</wheel_radius> -->
-      <!-- <publish_odom>true</publish_odom> -->
-      <!-- <publish_odom_tf>true</publish_odom_tf> -->
-      <!-- <publish_wheel_tf>true</publish_wheel_tf> -->
-      <!-- <odom_publish_frequency>50</odom_publish_frequency> -->
-      <!-- <topic>/cmd_vel</topic> -->
-      <!-- <odom_topic>/odom</odom_topic> -->
-      <!-- <tf_topic>/tf</tf_topic> -->
-      <!-- <frame_id>odom</frame_id> -->
-      <!-- <child_frame_id>base_link</child_frame_id> -->
-    <!-- </plugin> -->
-  <!-- </gazebo> -->
+
 
   <gazebo>
     <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
@@ -787,6 +769,22 @@
     <hardware>
       <plugin>gz_ros2_control/GazeboSimSystem</plugin>
     </hardware>
+    <joint name="left_rotatable_joint">
+      <command_interface name="position">
+        <param name="min">-0.261799</param>
+        <param name="max">0.261799</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
+    <joint name="right_rotatable_joint">
+      <command_interface name="position">
+        <param name="min">-0.261799</param>
+        <param name="max">0.261799</param>
+      </command_interface>
+      <state_interface name="position"/>
+      <state_interface name="velocity"/>
+    </joint>
     <joint name="front_right_joint">
       <command_interface name="velocity">
         <param name="min">-10</param>

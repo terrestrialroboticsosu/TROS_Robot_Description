@@ -1,0 +1,11 @@
+/**:
+  usb_cam:
+    ros__parameters:
+      video_device: "/dev/video4"
+      image_width: 1600
+      image_height: 1200
+      pixel_format: "mjpeg2rgb"
+      framerate: 50.0
+
+      camera_name: "arm_camera"
+      camera_info_url: "package://tros_sldworks_pkg/config/camera_calibration.yaml"
