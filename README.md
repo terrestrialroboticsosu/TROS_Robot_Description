@@ -1,8 +1,22 @@
-# view_robot_pkg 
-## Visualize a Robot's URDF in RViz (ROS2)
+# tros_sldworks_pkg 
+## TROS OSU 2026-2027 Robot Simuation
 
 This ROS2 package lets you **visualize your robot’s URDF file** in **RViz2**.  
 It also runs the **Joint State Publisher GUI**, so you can move the robot’s joints and see how they move in real time.
+
+## How to build
+First navigate to the correct path:
+```
+cd /path/to/tros_sldworks_pkg
+```
+Then build using colcon
+```
+colcon build
+```
+Then source the install
+```
+source ./install/setup.bash
+```
 
 ---
 ## How to Use
