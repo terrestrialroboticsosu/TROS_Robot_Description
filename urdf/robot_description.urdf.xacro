@@ -276,7 +276,7 @@
       lower="-0.261799"
       upper="0.261799"
       effort="0"
-      velocity="0" />
+      velocity="0.57" />
     <dynamics
       damping="0.4"
       friction="1" />
@@ -533,6 +533,7 @@
     <dynamics
       damping="0.1"
       friction="0.1" />
+      <limit effort="100.0" lower="-3.14" upper="3.14" velocity="1.57"/>
   </joint>
   <link
     name="arm_base_turret_link">
@@ -589,6 +590,7 @@
     <dynamics
       damping="0.1"
       friction="0.1" />
+      <limit effort="100.0" lower="-3.14" upper="3.14" velocity="1.57"/>
   </joint>
   <link
     name="arm_mid_link">
@@ -645,6 +647,7 @@
     <dynamics
       damping="0.1"
       friction="0.1" />
+    <limit effort="100.0" lower="-1.57" upper="1.57" velocity="1.57"/>
   </joint>
   <link
     name="arm_end_effector_turn_link">
@@ -701,6 +704,7 @@
     <dynamics
       damping="0.4"
       friction="0.2" />
+      <limit effort="100.0" lower="-3.14" upper="3.14" velocity="1.57"/>
   </joint>
   <link
     name="arm_end_effector_spin_link">
@@ -756,6 +760,7 @@
       xyz="0 0 -1" />
     <dynamics 
       damping="0.4" />
+      <limit effort="100.0" lower="-3.14" upper="3.14" velocity="1.57"/>
   </joint>
 
 

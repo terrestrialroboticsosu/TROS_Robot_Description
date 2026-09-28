@@ -7,7 +7,7 @@ controller_manager:
       type: diff_drive_controller/DiffDriveController
 
     arm_cont:
-      type: position_controllers/JointGroupPositionController
+      type: joint_trajectory_controller/JointTrajectoryController
     
     joint_broad:
       type: joint_state_broadcaster/JointStateBroadcaster
@@ -35,4 +35,8 @@ arm_cont:
       - arm_mid_joint
       - arm_end_effector_turn_joint
       - arm_end_effector_spin_joint
-    interface_name: position
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
