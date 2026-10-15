@@ -10,6 +10,26 @@
       <inertia ixx="0.0001" ixy="0" ixz="0" iyy="0.0001" iyz="0" izz="0.0001"/>
     </inertial>
   </link>
+  <link name="imu_link">
+  <visual>
+    <geometry>
+      <box size="0.02 0.02 0.005"/> <!-- Small board dimensions -->
+    </geometry>
+    <material name="blue">
+      <color rgba="0.0 0.0 0.8 1.0"/>
+    </material>
+  </visual>
+  <collision>
+    <geometry>
+      <box size="0.02 0.02 0.005"/>
+    </geometry>
+  </collision>
+  <inertial>
+    <mass value="0.005"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <inertia ixx="0.000001" ixy="0" ixz="0" iyy="0.000001" iyz="0" izz="0.000001"/>
+  </inertial>
+</link>
   <link
     name="chassis_link">
     <inertial>
@@ -50,11 +70,12 @@
       </geometry>
     </collision>
   </link>
-  <joint name="chassis_joint" type="fixed">
-    <parent link="base_link"/>
-    <child link="chassis_link"/>
-    <origin xyz="0.0 0.0 0.0" rpy="1.5708 0 0"/>
-  </joint>
+<joint name="chassis_joint" type="fixed">
+  <parent link="base_link"/>
+  <child link="chassis_link"/>
+  <!-- Added -1.5708 to the Yaw (last value) -->
+  <origin xyz="0.0 0.0 0.0" rpy="1.5708 0 -1.5708"/> 
+</joint>
   <link name="camera_link">
   <visual>
     <geometry>
@@ -89,6 +110,11 @@
   <child link="camera_optical_link"/>
   <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679"/> <!-- -pi/2 roll, -pi/2 yaw -->
 </joint>
+<joint name="imu_joint" type="fixed">
+  <parent link="chassis_link"/>
+  <child link="imu_link"/>
+  <origin xyz="0.0 0.0 0.05" rpy="0 0 0"/> <!-- Adjust position (x, y, z) relative to chassis -->
+</joint>
 <gazebo reference="camera_link">
   <sensor name="camera" type="camera">
     <always_on>true</always_on>
@@ -107,6 +133,60 @@
         <far>100.0</far>
       </clip>
     </camera>
+  </sensor>
+</gazebo>
+<gazebo reference="imu_link">
+  <sensor name="bno055_imu" type="imu">
+    <always_on>true</always_on>
+    <update_rate>100</update_rate> <!-- BNO055 runs natively at 100 Hz -->
+    <topic>imu/data</topic>
+    <gz_frame_id>imu_link</gz_frame_id>
+    
+    <!-- Required Gazebo IMU System Plugin -->
+    <plugin filename="gz-sim-imu-system" name="gz::sim::systems::Imu"/>
+
+    <imu>
+      <angular_velocity>
+        <x>
+          <noise type="gaussian">
+            <mean>0.0</mean>
+            <stddev>0.0002</stddev> <!-- ~0.01 deg/s noise -->
+          </noise>
+        </x>
+        <y>
+          <noise type="gaussian">
+            <mean>0.0</mean>
+            <stddev>0.0002</stddev>
+          </noise>
+        </y>
+        <z>
+          <noise type="gaussian">
+            <mean>0.0</mean>
+            <stddev>0.0002</stddev>
+          </noise>
+        </z>
+      </angular_velocity>
+      <linear_acceleration>
+        <x>
+          <noise type="gaussian">
+            <mean>0.0</mean>
+            <stddev>0.01</stddev> <!-- ~1 mg noise -->
+          </noise>
+        </x>
+        <y>
+          <noise type="gaussian">
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </y>
+        <z>
+          <noise type="gaussian">
+            <mean>0.0</mean>
+            <stddev>0.01</stddev>
+          </noise>
+        </z>
+      </linear_acceleration>
+    </imu>
   </sensor>
 </gazebo>
   <link
@@ -533,7 +613,7 @@
 <gazebo reference="gps_link">
   <sensor name="navsat" type="navsat">
     <always_on>true</always_on>
-    <update_rate>1</update_rate>
+    <update_rate>10</update_rate>
     <topic>gps/fix</topic>
     <gz_frame_id>gps_link</gz_frame_id>
     

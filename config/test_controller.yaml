@@ -16,16 +16,21 @@ diff_cont:
   ros__parameters:
     publish_rate: 100.0
 
+    # Frame IDs
     base_frame_id: base_link
+    odom_frame_id: odom
+    enable_odom_tf: false
 
     left_wheel_names: ['front_left_joint', 'rear_left_joint']
     right_wheel_names: ['front_right_joint', 'rear_right_joint']
-    wheel_separation: 0.7
-    wheel_radius: 0.2
+    wheel_separation: 0.8
+    wheel_radius: 0.15025
 
     use_stamped_vel: false
-
     wheels_per_side: 2
+
+    pose_covariance_diagonal: [0.001, 0.001, 1.0e-5, 1.0e-5, 1.0e-5, 0.01]
+    twist_covariance_diagonal: [0.001, 0.001, 1.0e-5, 1.0e-5, 1.0e-5, 0.01]
 
 arm_cont:
   ros__parameters:
