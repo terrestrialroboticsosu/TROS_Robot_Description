@@ -3,7 +3,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, SetEnvironmentVariable
 from launch.launch_description_sources import PythonLaunchDescriptionSource
-from launch.substitutions import Command, PathJoinSubstitution
+from launch.substitutions import PathJoinSubstitution
 from launch_ros.actions import Node
 import xacro
 
@@ -16,14 +16,20 @@ def generate_launch_description():
     xacro_file = os.path.join(pkg_share, 'urdf', 'robot_description.urdf.xacro')
     robot_description_config = xacro.process_file(xacro_file)
 
-    # Append package share directory to GZ_SIM_RESOURCE_PATH so 
-    # model:// and package:// mesh URIs resolve automatically
+    # Paths to allow Gazebo to find package meshes and custom models (like ArUco markers)
     pkg_parent_share = os.path.abspath(os.path.join(pkg_share, '..'))
+    models_dir = os.path.join(pkg_share, 'models')
+    
     existing_gz_path = os.environ.get('GZ_SIM_RESOURCE_PATH', '')
+    
+    # Construct combined GZ_SIM_RESOURCE_PATH
+    resource_paths = [models_dir, pkg_parent_share, pkg_share]
+    if existing_gz_path:
+        resource_paths.append(existing_gz_path)
     
     gz_resource_path = SetEnvironmentVariable(
         name='GZ_SIM_RESOURCE_PATH',
-        value=f"{pkg_parent_share}:{existing_gz_path}" if existing_gz_path else pkg_parent_share
+        value=':'.join(resource_paths)
     )
 
     robot_description = robot_description_config.toxml()
@@ -61,18 +67,19 @@ def generate_launch_description():
         output='screen'
     )
 
-    # Bridge Gazebo /velodyne_points topic to ROS 2
-    bridge_params = os.path.join(get_package_share_directory(package_name),'config','gz_bridge.yaml')
+    # Bridge Gazebo topics to ROS 2 using config file
+    bridge_params = os.path.join(pkg_share, 'config', 'gz_bridge.yaml')
     ros_gz_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
         arguments=[
             '--ros-args',
             '-p',
-            f'config_file:={bridge_params}',]
+            f'config_file:={bridge_params}',
+        ]
     )
 
-    # Add this alongside your other nodes
+    # Lidar static transform publisher
     lidar_static_tf = Node(
         package='tf2_ros',
         executable='static_transform_publisher',

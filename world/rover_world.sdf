@@ -35,6 +35,12 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
+    <include>
+      <uri>model://aruco_marker_0</uri>
+      <name>aruco_marker_0</name>
+      <pose>0.0 0.8 0.4 1.5708 -1.5708 0</pose>
+    </include>
+
     <!-- Inline Ground Plane -->
     <model name="ground_plane">
       <static>true</static>
