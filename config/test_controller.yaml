@@ -26,6 +26,11 @@ diff_cont:
     wheel_separation: 0.8
     wheel_radius: 0.15025
 
+    # Take speed from the wheel velocity sensors. The default (differencing
+    # wheel position each update) reads about 50% high and very noisy in
+    # Gazebo because the update interval jitters.
+    position_feedback: false
+
     use_stamped_vel: false
     wheels_per_side: 2
 

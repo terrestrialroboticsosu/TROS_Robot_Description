@@ -1,14 +1,14 @@
 # URC 2027 Autonomy Mission layout for world/rover_world.sdf (rules section 1.e).
 #
-# x/y are east/north metres from the world origin (38.411 N, -110.786 E, WGS 84).
+# x/y are east/north metres from the world origin (38.4166050 N, -110.7761587 E, WGS 84).
 # lat/lon are the same points converted, i.e. what the judges would hand out.
 # Keep this in sync with the <include> poses in the world file.
 #
 # Nothing reads this file yet - it is the reference for mission code and tests.
 
 origin:
-  lat: 38.4110000
-  lon: -110.7860000
+  lat: 38.4166050
+  lon: -110.7761587
 
 led:                       # rule 1.e.ii, indicator on the back of the rover
   autonomous: red
@@ -21,8 +21,8 @@ astronaut_assistance:      # 50 points
   astronaut_start:         # rule 1.e.v GNSS location (no astronaut model yet)
     x: 8.0
     y: -6.0
-    lat: 38.4109459
-    lon: -110.7859084
+    lat: 38.4165509
+    lon: -110.7760671
   hammer:                  # model rock_hammer; real position is not given out
     x: 5.0
     y: -3.0
@@ -34,18 +34,18 @@ route_finding:             # 50 points, 25 per target
   start:
     x: 0.0
     y: 0.0
-    lat: 38.4110000
-    lon: -110.7860000
+    lat: 38.4166050
+    lon: -110.7761587
   targets:
     - model: aruco_post_0
       aruco_id: 0
-      x: 12.0
-      y: 5.0
-      lat: 38.4110450
-      lon: -110.7858626
+      x: 110.0
+      y: -100.0
+      lat: 38.4157041
+      lon: -110.7748992
     - model: aruco_post_1
       aruco_id: 1
-      x: 30.0
-      y: -14.0
-      lat: 38.4108739
-      lon: -110.7856565
+      x: 164.0
+      y: -100.0
+      lat: 38.4157041
+      lon: -110.7742808

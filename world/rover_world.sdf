@@ -1,10 +1,21 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
   <world name="rover_world">
-    <physics name="1ms" type="ignored">
-      <max_step_size>0.001</max_step_size>
+    <physics name="5ms" type="ignored">
+      <!-- 5 ms steps (200 Hz): two physics steps per 100 Hz controller update.
+           1 ms steps made /clock tick 1000 times a second, which loaded every
+           ROS node and held the sim below real time. -->
+      <max_step_size>0.005</max_step_size>
       <real_time_factor>1.0</real_time_factor>
     </physics>
+
+    <!-- Aerial photos already have sunlight baked in, so light the scene
+         evenly to keep the ground close to the photo's colours. -->
+    <scene>
+      <ambient>0.6 0.6 0.6 1</ambient>
+      <background>0.62 0.74 0.88 1</background>
+      <shadows>true</shadows>
+    </scene>
 
     <!-- Required Gazebo Sim System Plugins -->
     <plugin filename="gz-sim-physics-system" name="gz::sim::systems::Physics"/>
@@ -20,9 +31,9 @@
     <spherical_coordinates>
       <surface_model>EARTH_WGS84</surface_model>
       <world_frame_orientation>ENU</world_frame_orientation>
-      <latitude_deg>38.411</latitude_deg>
-      <longitude_deg>-110.786</longitude_deg>
-      <elevation>0</elevation>
+      <latitude_deg>38.4166050</latitude_deg>
+      <longitude_deg>-110.7761587</longitude_deg>
+      <elevation>1362.85</elevation>
       <heading_deg>0</heading_deg>
     </spherical_coordinates>
 
@@ -31,61 +42,48 @@
       <cast_shadows>true</cast_shadows>
       <pose>0 0 10 0 0 0</pose>
       <diffuse>0.8 0.8 0.8 1</diffuse>
-      <specular>0.2 0.2 0.2 1</specular>
+      <!-- No specular: it put a glossy highlight on the terrain. -->
+      <specular>0 0 0 1</specular>
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
     <!-- ================= URC 2027 Autonomy Mission props =================
          Positions are east/north metres from the world origin and are
          mirrored as lat/lon in config/mission_2027.yaml - keep both in sync.
-         z is 0 for flat ground: on terrain, set z to the ground height at
-         that spot (the post pole extends 0.3 m below its origin). -->
+         z is the terrain height at that spot, from
+         `python3 tools/make_terrain.py --height-at X Y` (the post pole
+         extends 0.3 m below its origin). Post 0 is on a knoll that is steep on its north
+         and east sides; post 1 is behind it, hidden from the start. -->
 
     <!-- Route-finding targets (rule 1.e.xii): three-sided ArUco posts -->
     <include>
       <uri>model://aruco_post_0</uri>
       <name>aruco_post_0</name>
-      <pose>12 5 0 0 0 0</pose>
+      <pose>110 -100 35.12 0 0 0</pose>
     </include>
     <include>
       <uri>model://aruco_post_1</uri>
       <name>aruco_post_1</name>
-      <pose>30 -14 0 0 0 0.5</pose>
+      <pose>164 -100 28.84 0 0 0.5</pose>
     </include>
 
     <!-- Fetch! (rule 1.e.viii): rock pick hammer lying on the ground -->
     <include>
       <uri>model://rock_hammer</uri>
       <name>rock_hammer</name>
-      <pose>5 -3 0.02 0 0 0.8</pose>
+      <pose>5 -3 31.50 0 0 0.8</pose>
     </include>
 
-    <!-- Inline Ground Plane -->
-    <model name="ground_plane">
-      <static>true</static>
-      <link name="link">
-        <collision name="collision">
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
-          </geometry>
-        </collision>
-        <visual name="visual">
-          <geometry>
-            <plane>
-              <normal>0 0 1</normal>
-              <size>100 100</size>
-            </plane>
-          </geometry>
-          <material>
-            <ambient>0.8 0.8 0.8 1</ambient>
-            <diffuse>0.8 0.8 0.8 1</diffuse>
-            <specular>0.8 0.8 0.8 1</specular>
-          </material>
-        </visual>
-      </link>
-    </model>
+    <!-- Site terrain: 1024 m square cut from the lidar DEM, coloured with
+         an aerial photo (see models/urc_terrain/model.config for the source).
+         Regenerate with tools/make_terrain.py.
+         The world x/y origin is the tile centre. World z=0 is the lowest
+         point of the tile (elevation 1362.85 m), so the ground at the origin
+         is at z=31.47; see models/urc_terrain/terrain.yaml. -->
+    <include>
+      <uri>model://urc_terrain</uri>
+      <name>urc_terrain</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
   </world>
 </sdf>

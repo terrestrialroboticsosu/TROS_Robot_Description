@@ -37,6 +37,7 @@ setup(
     entry_points={
         'console_scripts': [
             'gps_covariance = tros_sldworks_pkg.gps_covariance:main',
+            'gps_mission = tros_sldworks_pkg.gps_mission:main',
         ],
     },
 )

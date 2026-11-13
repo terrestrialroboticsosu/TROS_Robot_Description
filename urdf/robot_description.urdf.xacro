@@ -120,7 +120,7 @@
 <gazebo reference="camera_link">
   <sensor name="camera" type="camera">
     <always_on>true</always_on>
-    <update_rate>30</update_rate>
+    <update_rate>15</update_rate>
     <topic>chassis_camera/image_raw</topic>
     <gz_frame_id>camera_optical_link</gz_frame_id>
     <camera>
@@ -294,12 +294,14 @@
       </material>
     </visual>
     <collision>
+      <!-- A cylinder the size of the wheel mesh. The mesh itself (38,000
+           triangles) is unreliable against heightmap terrain: wheels sink
+           through and the ride is very rough. -->
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.0037"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://tros_sldworks_pkg/meshes/front_left_link.STL" />
+        <cylinder radius="0.1524" length="0.203" />
       </geometry>
     </collision>
   </link>
@@ -350,12 +352,14 @@
       </material>
     </visual>
     <collision>
+      <!-- A cylinder the size of the wheel mesh. The mesh itself (38,000
+           triangles) is unreliable against heightmap terrain: wheels sink
+           through and the ride is very rough. -->
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.0037"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://tros_sldworks_pkg/meshes/rear_left_link.STL" />
+        <cylinder radius="0.1524" length="0.203" />
       </geometry>
     </collision>
   </link>
@@ -467,12 +471,14 @@
       </material>
     </visual>
     <collision>
+      <!-- A cylinder the size of the wheel mesh. The mesh itself (38,000
+           triangles) is unreliable against heightmap terrain: wheels sink
+           through and the ride is very rough. -->
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.0037"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://tros_sldworks_pkg/meshes/front_right_link.STL" />
+        <cylinder radius="0.1524" length="0.203" />
       </geometry>
     </collision>
   </link>
@@ -523,12 +529,14 @@
       </material>
     </visual>
     <collision>
+      <!-- A cylinder the size of the wheel mesh. The mesh itself (38,000
+           triangles) is unreliable against heightmap terrain: wheels sink
+           through and the ride is very rough. -->
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.0037"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://tros_sldworks_pkg/meshes/rear_right_link.STL" />
+        <cylinder radius="0.1524" length="0.203" />
       </geometry>
     </collision>
   </link>
@@ -621,13 +629,13 @@
         </noise>
       </ray>
       <always_on>true</always_on>
-      <visualize>true</visualize>
+      <visualize>false</visualize>
     </sensor>
   </gazebo>
 <gazebo reference="gps_link">
   <sensor name="navsat" type="navsat">
     <always_on>true</always_on>
-    <update_rate>10</update_rate>
+    <update_rate>1</update_rate>
     <topic>gps/fix</topic>
     <gz_frame_id>gps_link</gz_frame_id>
     
@@ -676,13 +684,15 @@
         rpy="0 0 0" />
       <mass
         value="1" />
+      <!-- Placeholder (was all zeros, which the physics engine rejects as
+           invalid). Replace with the CAD values when available. -->
       <inertia
-        ixx="0"
+        ixx="0.005"
         ixy="0"
         ixz="0"
-        iyy="0"
+        iyy="0.005"
         iyz="0"
-        izz="0" />
+        izz="0.005" />
     </inertial>
     <visual>
       <origin

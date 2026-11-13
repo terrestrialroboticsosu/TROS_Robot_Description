@@ -1,11 +1,13 @@
 import os
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
+from launch.actions import (DeclareLaunchArgument, ExecuteProcess, IncludeLaunchDescription,
+                            SetEnvironmentVariable, TimerAction)
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import LaunchConfiguration, PathJoinSubstitution
 from launch_ros.actions import Node
 import xacro
+import yaml
 
 def generate_launch_description():
 
@@ -60,6 +62,14 @@ def generate_launch_description():
         launch_arguments={'gz_args': ['-r ', world_file]}.items()
     )
 
+    # The terrain's lowest point is world z=0, so the ground under the start
+    # point is well above zero. terrain.yaml is written by tools/make_terrain.py.
+    spawn_z = 0.4
+    terrain_info = os.path.join(models_dir, 'urc_terrain', 'terrain.yaml')
+    if os.path.exists(terrain_info):
+        with open(terrain_info) as f:
+            spawn_z += yaml.safe_load(f)['origin_ground_z']
+
     # Spawn Robot Entity
     gz_spawn = Node(
         package='ros_gz_sim',
@@ -67,10 +77,21 @@ def generate_launch_description():
         arguments=[
             '-topic', 'robot_description',
             '-name', 'rover',
-            '-z', '0.4'
+            '-z', str(spawn_z)
         ],
         output='screen'
     )
+
+    # Gazebo's default view starts near z=0, which is underneath the terrain
+    # (from below you only see its edge walls). Once the GUI is up, move the
+    # view to just behind and above the rover.
+    view_request = ('pose: {position: {x: -9, y: 0, z: %.2f}, '
+                    'orientation: {x: 0, y: 0.149, z: 0, w: 0.989}}' % (spawn_z + 3.6))
+    move_view = TimerAction(period=10.0, actions=[ExecuteProcess(
+        cmd=['gz', 'service', '-s', '/gui/move_to/pose',
+             '--reqtype', 'gz.msgs.GUICamera', '--reptype', 'gz.msgs.Boolean',
+             '--timeout', '20000', '--req', view_request],
+        output='log')])
 
     # ROS-Gazebo Topic Bridge
     bridge_params = os.path.join(pkg_share, 'config', 'gz_bridge.yaml')
@@ -171,6 +192,7 @@ def generate_launch_description():
         rsp,
         gz_sim,
         gz_spawn,
+        move_view,
         ros_gz_bridge,
         gps_covariance,
         rviz,
