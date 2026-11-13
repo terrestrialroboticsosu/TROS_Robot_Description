@@ -106,8 +106,10 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
-    # Gazebo publishes NavSatFix with no covariance; this stamps one on so the
-    # global EKF weights GPS realistically (/gps/fix_raw -> /gps/fix).
+    # Gazebo publishes the true position with no covariance. This adds a
+    # realistic slowly-drifting GPS error and the covariance a receiver would
+    # report (/gps/fix_raw -> /gps/fix). The error model's parameters and
+    # defaults are in tros_sldworks_pkg/gps_covariance.py.
     gps_covariance = Node(
         package=package_name,
         executable='gps_covariance',

@@ -4,7 +4,8 @@
 # lat/lon are the same points converted, i.e. what the judges would hand out.
 # Keep this in sync with the <include> poses in the world file.
 #
-# Nothing reads this file yet - it is the reference for mission code and tests.
+# The gps_mission node reads route_finding from this file. Nothing reads the
+# led or astronaut_assistance sections yet.
 
 origin:
   lat: 38.4166050

@@ -641,23 +641,11 @@
     
     <plugin filename="gz-sim-navsat-system" name="gz::sim::systems::NavSat"/>
 
-    <navsat>
-      <position_sensing>
-        <horizontal>
-          <noise type="gaussian">
-            <mean>0.0</mean>
-            <!-- Gazebo applies this to lat/lon in DEGREES: 1e-5 deg is ~1.1 m -->
-            <stddev>0.00001</stddev>
-          </noise>
-        </horizontal>
-        <vertical>
-          <noise type="gaussian">
-            <mean>0.0</mean>
-            <stddev>2.0</stddev>
-          </noise>
-        </vertical>
-      </position_sensing>
-    </navsat>
+    <!-- No noise here: Gazebo can only add an independent random error to
+         each fix, which is not how GPS errs. The gps_covariance node adds a
+         realistic slowly-drifting error to this true position instead.
+         (If noise is ever added here, note that Gazebo applies the horizontal
+         value to lat/lon in DEGREES: 1e-5 deg is about 1.1 m.) -->
   </sensor>
 </gazebo>
   <joint
