@@ -19,7 +19,8 @@
   gz_type_name: "gz.msgs.Twist"
   direction: ROS_TO_GZ
 
-- ros_topic_name: "/gps/fix"
+# Raw fix has no covariance; the gps_covariance node republishes it on /gps/fix
+- ros_topic_name: "/gps/fix_raw"
   gz_topic_name: "/gps/fix"
   ros_type_name: "sensor_msgs/msg/NavSatFix"
   gz_type_name: "gz.msgs.NavSat"

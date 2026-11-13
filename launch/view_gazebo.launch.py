@@ -85,15 +85,21 @@ def generate_launch_description():
         parameters=[{'use_sim_time': use_sim_time}]
     )
 
-    # Static TF Publisher for Lidar
-    lidar_static_tf = Node(
-        package='tf2_ros',
-        executable='static_transform_publisher',
-        name='lidar_static_tf',
-        arguments=['0', '0', '0', '0', '0', '0', 'base_link', 'rover/base_link/velodyne_vlp16'],
-        parameters=[{'use_sim_time': use_sim_time}]
+    # Gazebo publishes NavSatFix with no covariance; this stamps one on so the
+    # global EKF weights GPS realistically (/gps/fix_raw -> /gps/fix).
+    gps_covariance = Node(
+        package=package_name,
+        executable='gps_covariance',
+        name='gps_covariance',
+        output='screen',
+        parameters=[{
+            'use_sim_time': use_sim_time,
+            'horizontal_stddev': 1.2,
+            'vertical_stddev': 2.5,
+        }]
     )
-    
+
+
     # RViz2
     rviz = Node(
         package='rviz2',
@@ -138,7 +144,7 @@ def generate_launch_description():
     navsat_transform_node = Node(
             package='robot_localization', 
             executable='navsat_transform_node', 
-            name='navsat_transform',
+            name='navsat_transform_node',  # must match the key in ekf.yaml
 	        output='screen',
             parameters=[os.path.join(pkg_share, 'config', 'ekf.yaml'), {'use_sim_time': use_sim_time}],
             remappings=[('imu', 'imu/data'),
@@ -166,7 +172,7 @@ def generate_launch_description():
         gz_sim,
         gz_spawn,
         ros_gz_bridge,
-        lidar_static_tf,
+        gps_covariance,
         rviz,
         local_ekf_node,
         navsat_transform_node,
