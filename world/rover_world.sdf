@@ -35,10 +35,29 @@
       <direction>-0.5 0.1 -0.9</direction>
     </light>
 
+    <!-- ================= URC 2027 Autonomy Mission props =================
+         Positions are east/north metres from the world origin and are
+         mirrored as lat/lon in config/mission_2027.yaml - keep both in sync.
+         z is 0 for flat ground: on terrain, set z to the ground height at
+         that spot (the post pole extends 0.3 m below its origin). -->
+
+    <!-- Route-finding targets (rule 1.e.xii): three-sided ArUco posts -->
     <include>
-      <uri>model://aruco_marker_0</uri>
-      <name>aruco_marker_0</name>
-      <pose>0.0 0.8 0.4 1.5708 -1.5708 0</pose>
+      <uri>model://aruco_post_0</uri>
+      <name>aruco_post_0</name>
+      <pose>12 5 0 0 0 0</pose>
+    </include>
+    <include>
+      <uri>model://aruco_post_1</uri>
+      <name>aruco_post_1</name>
+      <pose>30 -14 0 0 0 0.5</pose>
+    </include>
+
+    <!-- Fetch! (rule 1.e.viii): rock pick hammer lying on the ground -->
+    <include>
+      <uri>model://rock_hammer</uri>
+      <name>rock_hammer</name>
+      <pose>5 -3 0.02 0 0 0.8</pose>
     </include>
 
     <!-- Inline Ground Plane -->
