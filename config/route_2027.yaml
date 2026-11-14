@@ -1,0 +1,54 @@
+# Written by plan_route. The rover drives packet_hex (what the radio would
+# carry); the legs below are the same route in readable form.
+limits:
+  max_pitch_deg: 20.0
+  max_roll_deg: 15.0
+  clearance_m: 2.0
+  standoff_m: 2.5
+packet_bytes: 68
+packet_hex: 54520102abe3e51656ecf8bd08000000008c0073ff2b010effcb01a0fe6a023bfef602aefd450303fdb303b3fc05bd035dfd0e04aefdcb048ffd6b0520fdcf05bcfcab0d
+legs:
+- target: aruco_post_0
+  length_m: 148.9
+  max_pitch_deg: 6.9
+  max_roll_deg: 6.0
+  straight_line:
+    length_m: 149.4
+    max_pitch_deg: 7.9
+    max_roll_deg: 7.9
+  waypoints:
+  - - 38.4164779
+    - -110.7760042
+  - - 38.4163514
+    - -110.7758443
+  - - 38.4162609
+    - -110.7756613
+  - - 38.4161614
+    - -110.7754783
+  - - 38.416071
+    - -110.7752953
+  - - 38.4159445
+    - -110.7751353
+  - - 38.4157911
+    - -110.7750441
+  - - 38.4157188
+    - -110.7749184
+- target: aruco_post_1
+  length_m: 83.1
+  max_pitch_deg: 16.0
+  max_roll_deg: 11.6
+  straight_line:
+    length_m: 54.0
+    max_pitch_deg: 19.7
+    max_roll_deg: 25.1
+  waypoints:
+  - - 38.415872
+    - -110.7749064
+  - - 38.4159439
+    - -110.7748146
+  - - 38.4159164
+    - -110.774597
+  - - 38.4158169
+    - -110.7744141
+  - - 38.4157266
+    - -110.7742998

@@ -38,6 +38,9 @@ setup(
         'console_scripts': [
             'gps_covariance = tros_sldworks_pkg.gps_covariance:main',
             'gps_mission = tros_sldworks_pkg.gps_mission:main',
+            'lidar_terrain = tros_sldworks_pkg.lidar_terrain:main',
+            'plan_route = tros_sldworks_pkg.dem_route:main',
+            'aruco_detector = tros_sldworks_pkg.aruco_detector:main',
         ],
     },
 )

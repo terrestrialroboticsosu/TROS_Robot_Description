@@ -1,6 +1,6 @@
 # Autonomy handoff note
 
-Last updated 2026-11-12, after a Claude Code session on Ubuntu 24.04 with ROS 2
+Last updated 2026-11-14, after a Claude Code session on Ubuntu 24.04 with ROS 2
 Jazzy and Gazebo. Unlike the first version of this note, what is described
 here **has been run in Gazebo**; "Test results" says exactly what was measured
 and "Still open" says what was not.
@@ -10,11 +10,14 @@ and "Still open" says what was not.
 - The sim builds, launches, and the rover drives on real terrain from the
   competition area (1024 m square, from a lidar DEM, with an aerial photo).
 - Localisation works: dual EKF with wheel odometry, IMU and GPS.
-- **Stage 1 navigation works:** Nav2 drives the rover to both route-finding
-  posts using odometry and GPS only. It is blind (no lidar, no camera), plans a
-  straight line, and deliberately stops 2.5 m short of each post.
-- Not started: obstacle avoidance, tag detection and final approach, terrain-
-  aware planning, anything for the Astronaut Assistance half.
+- **The Route-Finding mission runs end to end in the sim.** A route planned
+  from the DEM on the base station is sent to the rover as one small packet;
+  the rover drives it on GPS, locks onto the post's ArUco tag when it comes
+  into view, and drives in to stop with its closest point 0.6 to 0.7 m from
+  each post (rule: within 1 m).
+- Experimental: a lidar terrain cost layer (off by default).
+- Not started: the radio link itself, the LED, returning or retracing,
+  anything for the Astronaut Assistance half.
 
 ## How to run it
 
@@ -22,12 +25,20 @@ and "Still open" says what was not.
 colcon build
 source install/setup.bash
 ros2 launch tros_sldworks_pkg view_gazebo.launch.py    # sim, EKFs, RViz
-ros2 launch tros_sldworks_pkg nav2.launch.py           # second terminal
-ros2 run tros_sldworks_pkg gps_mission                 # third terminal
+ros2 launch tros_sldworks_pkg nav2.launch.py           # Nav2 + ArUco detector
+ros2 run tros_sldworks_pkg gps_mission --ros-args \
+    -p route_file:=$PWD/config/route_2027.yaml         # planned route + tag approach
 ```
 
-The mission takes about six minutes. It prints the distance to each post on
-arrival, but that number is the rover's own estimate, not the truth.
+The mission takes about seven minutes. Without `route_file` the rover drives
+straight lines to the posts instead. The distances it prints on arrival are
+its own estimates, not the truth.
+
+To plan a new route (base station; needs the DEM, which is not in the repo):
+
+```
+ros2 run tros_sldworks_pkg plan_route ~/Downloads/output.tin.tif --out route.yaml
+```
 
 ## Hardware this is planned around
 
@@ -98,13 +109,19 @@ Follow points depend on the command method: 5 for a carried device or a sign
 
 Key points:
 
-- **Final approach uses the tag plus lidar, not GPS.** A standalone GPS is
+- **Final approach uses the tag, not GPS.** A standalone GPS is
   consistent from fix to fix but offset from the truth by a metre or more, and
   the offset cannot be filtered out. Post coordinates are true coordinates, so
   the rover ends up offset by the same amount. RTK would fix this, but its
   corrections drop out at the target behind the hill.
-- With the current lens the 15 cm marker reads to roughly 5 to 6 m. That is
-  enough because coordinates are exact.
+- With the current lens the 15 cm marker reads to roughly 5 to 6 m (7 m in
+  the sim, whose camera is narrower). That is enough because coordinates are
+  exact.
+- **The camera cannot see the tag from closer than about 2.5 m:** it is
+  mounted low and level, and the rover's nose-down rest pitch tilts it down
+  further. The final approach copes by locking the post position while the
+  tag is visible and finishing on wheel odometry. Tilting the camera up 15 to
+  20 degrees, or mounting it higher, would still be better.
 - **Terrain planning is the core problem.** Plan the global route over a slope
   cost map from the DEM before the run; use lidar elevation mapping locally.
   Do not flatten the VLP-16 to a 2D scan. The test runs below show why: the
@@ -120,8 +137,9 @@ Key points:
 
 Order of work:
 
-1. ~~GPS navigation~~ done (stage 1). Next: tag-and-lidar final approach.
-2. DEM route planning and lidar traversability.
+1. ~~GPS navigation~~, ~~DEM route planning~~, ~~tag final approach~~: working
+   in the sim. Next: the radio link, LED, and testing on hardware.
+2. Lidar traversability (started, experimental).
 3. Person following with a sign command, plus Stay.
 4. Autonomous hammer pickup and drop.
 5. Gesture recognition.
@@ -189,20 +207,107 @@ sitting still for an hour.
 - `diff_cont` takes speed from wheel velocity; differencing wheel position
   read high and noisy in Gazebo.
 
-**Navigation, stage 1** (`config/nav2_params.yaml`, `launch/nav2.launch.py`)
+**Navigation** (`config/nav2_params.yaml`, `launch/nav2.launch.py`)
 
 - Nav2 servers only: controller (Regulated Pure Pursuit, 0.8 m/s), planner,
   behaviours, velocity smoother, BT navigator, waypoint follower.
-- Both costmaps are empty, so the plan is a straight line. The global costmap
-  is a 600 m window that follows the rover; a goal must be within 300 m.
+- Both costmaps are empty by default; the terrain knowledge comes from the
+  DEM route instead. The global costmap is a 600 m window that follows the
+  rover; a goal must be within 300 m.
 - Velocity goes controller -> velocity smoother -> `/diff_cont/cmd_vel` as
   `TwistStamped`, which is the only type the drive controller accepts.
-- `gps_mission` reads the targets from `mission_2027.yaml` and sends each to
-  the GPS waypoint follower, aimed `standoff_m` (default 2.5 m) short of the
-  post. The standoff is the only thing stopping the blind rover from hitting
-  the post, and it means stage 1 cannot score the 1 m requirement.
+- `max_angular_accel` is 10 on purpose. The rover is skid-steer and turns at
+  well under half the commanded rate; with the old value of 1.5 the controller
+  never built up a turn command and the rover crept round at about 2 deg/s.
 
-## Test results (2026-11-12)
+**DEM route** (`tros_sldworks_pkg/dem_route.py`, run as `plan_route`)
+
+- Runs on the base station. Resamples the DEM to 1 m and, for every move
+  between neighbouring cells, works out the rover's pitch (along the move) and
+  roll (across it). Moves over `--max-pitch` (20) or `--max-roll` (15) are
+  forbidden; ground steeper than both is avoided by `--clearance` (2 m) to
+  allow for GPS error. **These limits are placeholders, not the rover's real
+  ones.**
+- Not a Nav2 planner on purpose: a costmap holds one value per cell and
+  cannot tell climbing a slope from driving across it.
+- The cheapest path is reduced to waypoints and packed into a packet of about
+  5 bytes per waypoint with a CRC: 68 bytes for the current two-leg route
+  (`config/route_2027.yaml`, picture in `docs/route_2027_preview.png`). The
+  whole route goes to the rover in one packet before the run, so the rover
+  does not need the radio once it has started.
+- Each leg after the first starts from the previous post, because the tag
+  approach leaves the rover there.
+
+**Mission** (`tros_sldworks_pkg/gps_mission.py`)
+
+- Reads the targets from `mission_2027.yaml`. With `route_file` it decodes the
+  packet and gives each leg to Nav2's controller as one continuous path;
+  without it, it drives straight to a point `standoff_m` short of each post.
+- **Final approach:** every sighting of the target's tag within 7 m becomes a
+  post-centre position in the odom frame (which does not jump with GPS). Five
+  agreeing sightings lock it; GPS navigation is cancelled and the rover turns
+  to the post and drives in, stopping when its front (`front_reach_m`, 0.45 m
+  ahead of `base_link`) is `stop_gap_m` (0.5 m) from the post centre. If GPS
+  navigation ends without a lock it turns on the spot, and if that fails backs
+  up 2 m and turns again.
+
+**ArUco detector** (`tros_sldworks_pkg/aruco_detector.py`)
+
+- Ported from Team Mountaineers' `ros2_aruco` (MIT licence, notice in the
+  file). Their version crashes on OpenCV 5, publishes positions with two axes
+  swapped (about 1.5 m wrong after a TF transform), and gives every marker in
+  an image the first marker's id. All three are fixed, and it works with
+  OpenCV 4.6 (Ubuntu's) and 5.
+- Publishes `vision_msgs/Detection3DArray` on `/aruco/detections` (class_id is
+  the marker id) and a PoseArray on `/aruco/poses` for RViz.
+
+**Lidar terrain** (`tros_sldworks_pkg/lidar_terrain.py`, experimental)
+
+- Builds an elevation map from the VLP-16 (levelled with IMU roll and pitch)
+  and scores slope and steps per cell into both costmaps. Turn on with
+  `nav2.launch.py use_lidar_terrain:=true`.
+- Gave no false obstacles on gentle ground and scored the knoll's rim as
+  steep, but it has not completed a mission. Both times it stalled at a crest
+  the controller was also hitting the turning problem fixed above, so it
+  needs testing again.
+
+## Test results
+
+### 2026-11-14: full mission, planned route and tag approach
+
+Two runs, start to post 0 to post 1, realistic GPS model. Distances are from
+the post centre to the closest point of the rover's body and wheels, from the
+sim's ground truth.
+
+| | Run 1 | Run 2 (next leg starts at the post) |
+|---|---|---|
+| Posts reached | 2 of 2 | 2 of 2 |
+| Closest point to post 0 / post 1 | 0.56 m / 0.59 m | 0.60 m / 0.71 m |
+| Tag approach started from | 4.9 m / 3.4 m | 3.6 m / 4.3 m |
+| Largest roll / pitch, leg to post 0 | 6 / 12 deg | 8 / 11 deg |
+| Largest roll / pitch, leg to post 1 | 25 / 27 deg | 15 / 25 deg |
+| Largest roll / pitch, tag approaches | under 5 / 8 deg | under 6 / 7 deg |
+
+- In run 1 the leg to post 1 started from the end of the previous leg's
+  waypoints, 2.5 m short of post 0, so the stretch from where the rover
+  actually stopped was unplanned and crossed steep ground. Run 2 is with that
+  fixed.
+- Pitch on the leg to post 1 is still over the planner's 20 degree limit. The
+  measured pitch includes the 5 degree rest pitch, and the rover strays up to
+  about 2 m from the planned line.
+- In run 2 the rover reached the end of the leg to post 1 without having seen
+  the tag; the search turn found it within 2 seconds.
+
+**ArUco detector accuracy** (rover placed straight in front of post 0):
+
+| Distance | 3 m | 4 m | 5 m | 6 m | 7 m | 8 m+ |
+|---|---|---|---|---|---|---|
+| Position error | 0.05 m | 0.12 m | 0.10 m | 0.17 m | 0.27 m | not detected |
+
+The error is mostly range, which reads about 4% long; the cause has not been
+checked. From 2 m the tag is above the top of the camera image.
+
+### 2026-11-12
 
 **Sensor checks**, done on the earlier flat world, before the terrain went in:
 
@@ -239,14 +344,19 @@ Reading these:
 
 ## Still open
 
-- **Blind driving.** Add a lidar obstacle layer to the costmaps. The cloud has
-  to be height-filtered in a gravity-aligned frame because of the resting
-  pitch, or the ground ahead reads as an obstacle.
-- **Final approach.** No ArUco detector node exists and no ArUco ROS package is
-  installed. Needs a detector and an approach step that takes over from the
-  waypoint follower near the post.
-- **Route planning.** Slope cost map from the DEM; both EKFs still run with
-  `two_d_mode: true`, which should be revisited now the rover is on slopes.
+- **Radio link.** Nothing yet sends the route packet over the RFD900x or
+  receives it on the rover. The rover should save it to disk and echo its CRC
+  back, so the operator knows it arrived intact before starting.
+- **Losing the radio.** The route and tag approach need no link, but nothing
+  yet lets the rover come back on its own (no return leg in the packet,
+  nothing retraces the driven path).
+- **Rover limits.** The planner's 20 / 15 degree pitch and roll limits are
+  placeholders. The real rover's limits are needed, and the rover strays up
+  to 2 m from the planned line, which the limits should allow for.
+- **Blind driving.** Nothing stops the rover for a rock the DEM cannot show.
+  The lidar terrain layer is the start of this.
+- **LED** (red / blue / flashing green) is not driven.
+- **EKFs** still run with `two_d_mode: true`, worth revisiting on slopes.
 - **Sim realism.** The IMU's absolute yaw is exact, so heading is better than
   it will be on hardware. Wheel slip on loose soil is not modelled.
 - **Astronaut Assistance.** Nothing built. No astronaut model; the mission
